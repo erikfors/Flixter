@@ -83,7 +83,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     //Returns the view type of the item at position for the purposes of view recycling.
     @Override
     public int getItemViewType(int position) {
-        final double ratingToCompare = 5;
+        final double ratingToCompare = 7;
 
         //compares the movie rating with rating of popular movie
         //return 1 if the movie is popular
