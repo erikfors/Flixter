@@ -1,19 +1,24 @@
 package com.fors.erik.flixter.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.fors.erik.flixter.DetailActivity;
 import com.fors.erik.flixter.R;
 import com.fors.erik.flixter.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -83,7 +88,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     //Returns the view type of the item at position for the purposes of view recycling.
     @Override
     public int getItemViewType(int position) {
-        final double ratingToCompare = 7;
+        final float ratingToCompare = 7;
 
         //compares the movie rating with rating of popular movie
         //return 1 if the movie is popular
@@ -105,15 +110,17 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            container = itemView.findViewById(R.id.conteiner);
         }
 
-        public void bind(Movie movie) {
+        public void bind(final Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             String imageURL;
@@ -123,21 +130,37 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 imageURL = movie.getPostPath();
 
             Glide.with(context).load(imageURL).placeholder(R.drawable.loading).into(ivPoster);
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   GoToDetailScreen(movie);
+                }
+            });
         }
     }
 
     public class ViewHolder2 extends RecyclerView.ViewHolder{
 
         ImageView ivBackdrop;
+        RelativeLayout container;
 
         public ViewHolder2(@NonNull View itemView){
             super(itemView);
             ivBackdrop = itemView.findViewById(R.id.ivBackdrop);
+            container = itemView.findViewById(R.id.conteiner_alt);
         }
 
-        public void bind(Movie movie){
+        public void bind(final Movie movie){
             final String imageURL = movie.getBackdropPath();
             Glide.with(context).load(imageURL).placeholder(R.drawable.loading).into(ivBackdrop);
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GoToDetailScreen(movie);
+                }
+            });
         }
     }
 
@@ -153,5 +176,11 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void bind(){
             ivErrorText.setText("An error has occurred!");
         }
+    }
+
+    public void GoToDetailScreen(Movie movie){
+        Intent i = new Intent(context, DetailActivity.class);
+        i.putExtra("movie", Parcels.wrap(movie));
+        context.startActivity(i);
     }
 }
