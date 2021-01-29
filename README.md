@@ -13,10 +13,10 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 #### BONUS
 
 - [ ] Implement a shared element transition when user clicks into the details of a movie (1 point).
-- [ ] Trailers for popular movies are played automatically when the movie is selected (1 point).
-  - [ ] When clicking on a popular movie (i.e. a movie voted for more than 5 stars) the video should be played immediately.
-  - [ ] Less popular videos rely on the detailed page should show an image preview that can initiate playing a YouTube video.
-- [ ] Add a play icon overlay to popular movies to indicate that the movie can be played (1 point).
+- [x] Trailers for popular movies are played automatically when the movie is selected (1 point).
+  - [x] When clicking on a popular movie (i.e. a movie voted for more than 5 stars) the video should be played immediately.
+  - [x] Less popular videos rely on the detailed page should show an image preview that can initiate playing a YouTube video.
+- [x] Add a play icon overlay to popular movies to indicate that the movie can be played (1 point).
 - [ ] Apply the popular ButterKnife annotation library to reduce view boilerplate. (1 point)
 - [ ] Add a rounded corners for the images using the Glide transformations. (1 point)(replaced it for story below)
 - [x] Add a rounded corners for the images using cardview widget.
@@ -37,7 +37,7 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 
 ### App Walkthough GIF
 
-<img src='walkthrogh.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [GIF Maker-Editor](https://play.google.com/store/apps/details?id=com.media.zatashima.studio&hl=en_US&gl=US).
 
