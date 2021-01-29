@@ -42,7 +42,7 @@ public class DetailActivity extends YouTubeBaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        
+
 
         tvOverview = findViewById(R.id.tvdOverview);
         tvTitle = findViewById(R.id.tvdTitle);
