@@ -22,6 +22,7 @@
         android:textStyle="bold"
         android:textColor="@android:color/white"
         tools:text="Wonder Woman 1984"
+        android:transitionName="title_transition"
         android:layout_marginTop="16dp"
          />
 

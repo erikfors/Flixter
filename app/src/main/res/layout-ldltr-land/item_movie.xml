@@ -30,6 +30,7 @@
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/cvImageHolder"
         android:text="TextView"
+        android:transitionName="title_transition"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         tools:text="Shadow in the Cloud" />

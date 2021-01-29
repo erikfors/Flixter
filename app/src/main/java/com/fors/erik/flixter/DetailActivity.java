@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -36,8 +39,10 @@ public class DetailActivity extends YouTubeBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        
 
         tvOverview = findViewById(R.id.tvdOverview);
         tvTitle = findViewById(R.id.tvdTitle);
@@ -45,10 +50,10 @@ public class DetailActivity extends YouTubeBaseActivity {
         youTubePlayerView = findViewById(R.id.player);
         tvReleseDate = findViewById(R.id.tvdReleaseDate);
 
+
         Intent intent = getIntent();
 
-        Movie movie = Parcels.unwrap( intent.getParcelableExtra("movie"));
-
+        final Movie movie = Parcels.unwrap( intent.getParcelableExtra("movie"));
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
         ratingBar.setRating(movie.getRating());
@@ -64,11 +69,19 @@ public class DetailActivity extends YouTubeBaseActivity {
                         return;
                     String youtube_key = results.getJSONObject(0).getString("key");
                     Log.d(TAG,youtube_key);
-                    initializeYoutube(youtube_key);
+
+                    Boolean popularMovie = false;
+
+                    if(movie.getRating() > 7.0)
+                        popularMovie = true;
+
+                    initializeYoutube(youtube_key,popularMovie);
+
                 } catch (JSONException e) {
                     Log.e(TAG,e.toString());
                     e.printStackTrace();
                 }
+
             }
 
             @Override
@@ -78,13 +91,16 @@ public class DetailActivity extends YouTubeBaseActivity {
         });
     }
 
-    private void initializeYoutube(final String youtube_key) {
+    private void initializeYoutube(final String youtube_key, final boolean popularMovie) {
         youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d(TAG,"onInitializationSuccess");
                 // do any work here to cue video, play video, etc.
                 youTubePlayer.cueVideo(youtube_key);
+
+                if(popularMovie)
+                youTubePlayer.loadVideo(youtube_key);
             }
 
             @Override
@@ -94,4 +110,6 @@ public class DetailActivity extends YouTubeBaseActivity {
         });
 
     }
+
+
 }
